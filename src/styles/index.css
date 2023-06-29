@@ -1,0 +1,21 @@
+@import url(resset.css);
+
+.carItem {
+  width: 80%;
+  padding: 15px;
+  border: 1px solid teal;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pagination {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.paginationItem {
+  padding: 5px;
+  border: 1px solid teal;
+}
