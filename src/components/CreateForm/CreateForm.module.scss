@@ -1,0 +1,25 @@
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.formItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 16px;
+}
+
+.formItem:not(:last-child) {
+    margin-bottom: 20px;
+}
+
+.itemText {
+    margin-right: 10px;
+}
+
+.input {
+    display: block;
+    border-bottom: 1px solid teal;
+    margin-top: 5px;
+}

@@ -10,6 +10,7 @@ export enum CarsActionEnum {
     FETCH_CARS = 'FETCH_CARS',
     FETCH_CARS_SUCCESS = 'FETCH_CARS_SUCCESS',
     FETCH_CARS_ERROR = 'FETCH_CARS_ERROR',
+    SET_CARS = 'SET_CARS',
 }
 
 interface FetchCarsAction {
@@ -26,7 +27,13 @@ interface FetchCarsErrorAction {
     payload: string;
 }
 
+interface  SetCarsAction {
+    type: CarsActionEnum.SET_CARS;
+    payload: ICar[];
+}
+
 export type ActionState = 
     FetchCarsAction |
     FetchCarsSuccessAction |
-    FetchCarsErrorAction;
+    FetchCarsErrorAction |
+    SetCarsAction;

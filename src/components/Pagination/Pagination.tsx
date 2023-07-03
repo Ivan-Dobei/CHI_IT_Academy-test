@@ -16,17 +16,14 @@ const Pagination = (props: PaginationProps) => {
 
     let pageNumbers = [];
     const totalPages = totalItems / itemsPerPage;
+    const firstInLine = currentPage - 7;
+    const lastInLine = currentPage + 7;
 
     for(let i = 0; i <= totalPages; i++) {
        if(i <= totalPages) {
             pageNumbers.push(i);
-            console.log(i);
-            
        }
     }
-
-    const firstInLine = currentPage - 7;
-    const lastInLine = currentPage + 7;
 
     if (firstInLine <= 0) {
         pageNumbers = pageNumbers.slice(1, 16);

@@ -18,6 +18,9 @@ export const CarReducer = (state = initialState, action: ActionState): CarState 
         case CarsActionEnum.FETCH_CARS_ERROR:
             return {...state, isLoading: false, error: action.payload};
 
+        case CarsActionEnum.SET_CARS:
+            return {...state, cars: action.payload}
+
         default:
             return state;
     }
