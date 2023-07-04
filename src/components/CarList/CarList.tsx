@@ -1,11 +1,13 @@
 import { ICar } from '../../models/ICar'
 import CarItem from '../CarItem/CarItem';
+import cls from './CarList.module.scss';
 
 interface CarListProps {
     cars: ICar[];
     setIsDeleteFormOpen: (isOpen: boolean) => void;
     setIsEditFormOpen: (isOpen: boolean) => void;
     setItemId:(id: number) => void;
+    lastIndex: number;
 }
 
 const CarList = (props: CarListProps) => {
@@ -15,16 +17,19 @@ const CarList = (props: CarListProps) => {
     setIsDeleteFormOpen, 
     setIsEditFormOpen,
     setItemId,
+    lastIndex,
   } = props;
 
+  const mainIndex = lastIndex - 9;
+
   return (
-    <ul>
+    <ul className={cls.list}>
       {cars.map((car, index) => 
         <CarItem 
           setItemId={setItemId}
           setIsDeleteFormOpen={setIsDeleteFormOpen}
           setIsEditFormOpen={setIsEditFormOpen}
-          number={index + 1}
+          number={index + mainIndex}
           item={car} 
           key={car.id}
         />  

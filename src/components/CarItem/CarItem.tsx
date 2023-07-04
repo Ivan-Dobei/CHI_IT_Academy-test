@@ -1,5 +1,6 @@
 import { ICar } from '../../models/ICar'
 import '../../styles/index.scss'
+import { classNames } from '../../utils/ClassNames/ClassNames';
 import Select from '../Select/Select';
 import cls from './CarItem.module.scss';
 
@@ -48,16 +49,56 @@ const CarItem = (props: CarItemProps) => {
   ];
 
   return (
-    <li className='carItem'>
-      <p>{number}</p>
-      <p>{car}</p>
-      <p>{car_model}</p>
-      <p>{car_vin}</p>
-      <p>{car_color}</p>
-      <p>{car_model_year}</p>
-      <p>{price}</p>
-      <p>{availability}</p>
-      <Select title='Actions' options={options}/>
+    <li className={cls.item}>
+      <div 
+        className={classNames(cls.column, {}, [])}
+        >
+          <p className={cls.hiddenText}>№</p>
+          <p>{number}</p>
+        </div>
+      <div
+        className={classNames(cls.column, {}, [])} 
+        >
+          <p className={cls.hiddenText}>Company:</p>
+          <p>{car}</p>
+        </div>
+      <div 
+        className={classNames(cls.column, {}, [])} 
+        >
+          <p className={cls.hiddenText}>Model:</p>
+          <p>{car_model}</p>
+        </div>
+      <div 
+        className={classNames(cls.column, {}, [])} 
+        >
+          <p className={cls.hiddenText}>VIN:</p>
+          <p>{car_vin}</p>
+        </div>
+      <div 
+        className={classNames(cls.column, {}, [])}
+        >
+          <p className={cls.hiddenText}>Color:</p>
+          {car_color}
+        </div>
+      <div 
+        className={classNames(cls.column, {}, [])} 
+        >
+          <p className={cls.hiddenText}>Year:</p>
+          <p>{car_model_year}</p>
+        </div>
+      <div 
+        className={classNames(cls.column, {}, [])} 
+        >
+          <p className={cls.hiddenText}>Price:</p>
+          <p>{price}</p>
+        </div>
+      <div 
+        className={classNames(cls.column, {}, [])}
+        >
+          <p className={cls.hiddenText}>Available:</p>
+          <p>{availability ? 'yes' : 'no'}</p>
+          </div>
+      <Select className={cls.column} title='Actions' options={options}/>
     </li>
     
   )

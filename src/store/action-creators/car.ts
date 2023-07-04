@@ -18,7 +18,10 @@ export const fetchCars = () => {
          }
       
       } catch (e) {
-         dispatch({type: CarsActionEnum.FETCH_CARS_ERROR, payload: 'Error'});
+         dispatch({
+            type: CarsActionEnum.FETCH_CARS_ERROR,
+             payload: 'An error has occurred, the server cannot find the data as requested'
+            });
       }
    }
 }
@@ -31,6 +34,34 @@ export const deleteCarById = (id: number) => {
          const newCars = cars.filter(car => car.id !== id);
          dispatch({type: CarsActionEnum.SET_CARS, payload: newCars});
          localStorage.setItem('cars', JSON.stringify(newCars));
+      }
+   }
+}
+
+export const createCar = (car: ICar) => {
+   return async (dispatch: AppDispatch) => {
+      const json = localStorage.getItem('cars');
+      if (json != null) {
+         const cars = JSON.parse(json) as ICar[];
+         const newCars = [car, ...cars];
+         dispatch({type: CarsActionEnum.SET_CARS, payload: newCars});
+         localStorage.setItem('cars', JSON.stringify(newCars));
+      }
+   }
+}
+
+export const editCar = (car: ICar) => {
+   return async (dispatch: AppDispatch) => {
+      const json = localStorage.getItem('cars');
+      if (json != null) {
+         const cars = JSON.parse(json) as ICar[];
+         cars.forEach((item, index) => {
+            if(item.id === car.id) {
+               cars[index] = {...car}
+            }
+         })
+         dispatch({type: CarsActionEnum.SET_CARS, payload: cars});
+         localStorage.setItem('cars', JSON.stringify(cars));
       }
    }
 }

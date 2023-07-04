@@ -27,7 +27,7 @@ const DeleteForm = (props: DeleteFormProps) => {
 
   return (
     <form className={cls.form} onSubmit={onSubmitForm}>
-        <h3 className={cls.title}>Are you shure that you want to delete the car from table?</h3>
+        <h3 className={cls.title}>Are you sure that you want to delete the car from the table?</h3>
         <div className={cls.btns}>
             <button className={cls.btn} onClick={onCancelForm}>No</button>
             <button className={cls.btn} onClick={onDeleteItem}>Yes</button>

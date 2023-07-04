@@ -8,6 +8,7 @@ interface ModalPorps {
     children?: ReactNode;
     isOpen: boolean;
     onClose: () => void;
+    title?: string;
 }
 
 const Modal = (props: ModalPorps) => {
@@ -16,7 +17,8 @@ const Modal = (props: ModalPorps) => {
         children, 
         className, 
         isOpen, 
-        onClose
+        onClose,
+        title
     } = props;
 
     const mods: Record<string, boolean> = {
@@ -52,7 +54,12 @@ const Modal = (props: ModalPorps) => {
       <div className={classNames(cls.modal, mods, [className])}>
         <div className={cls.overlay} onClick={closeHandler}>
          <div className={cls.content} onClick={onContentClick}>
-            {children}
+            <h2 className={cls.title}>
+              {title}
+            </h2>
+            <div className={cls.contentBottom}>
+              {children}
+            </div>
           </div>
         </div>
       </div>

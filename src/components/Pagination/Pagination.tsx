@@ -1,3 +1,5 @@
+import cls from './Pagination.module.scss';
+
 interface PaginationProps {
     totalItems: number;
     itemsPerPage: number;
@@ -16,8 +18,8 @@ const Pagination = (props: PaginationProps) => {
 
     let pageNumbers = [];
     const totalPages = totalItems / itemsPerPage;
-    const firstInLine = currentPage - 7;
-    const lastInLine = currentPage + 7;
+    const firstInLine = currentPage - 4;
+    const lastInLine = currentPage + 5;
 
     for(let i = 0; i <= totalPages; i++) {
        if(i <= totalPages) {
@@ -26,18 +28,18 @@ const Pagination = (props: PaginationProps) => {
     }
 
     if (firstInLine <= 0) {
-        pageNumbers = pageNumbers.slice(1, 16);
+        pageNumbers = pageNumbers.slice(1, 11);
     } else if(lastInLine >= totalPages) {
-        pageNumbers = pageNumbers.slice(totalPages - 14, totalPages + 1);
+        pageNumbers = pageNumbers.slice(totalPages - 9, totalPages + 1);
     } else {
-        pageNumbers = pageNumbers.slice(currentPage - 7, currentPage + 8);
+        pageNumbers = pageNumbers.slice(currentPage - 4, currentPage + 6);
     }
 
   return (
-    <ul className='pagination'>
+    <ul className={cls.pagination}>
         {pageNumbers.map(pageNumber => 
-            <li key={pageNumber} className='paginationItem'>
-                <button onClick={() => paginate(pageNumber)}>
+            <li key={pageNumber} className={cls.paginationItem}>
+                <button className={cls.btn} onClick={() => paginate(pageNumber)}>
                     {pageNumber}
                 </button>
             </li>    

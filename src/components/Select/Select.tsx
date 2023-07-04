@@ -1,9 +1,11 @@
 import cls from './Select.module.scss';
 import { IOption } from '../../models/IOption';
+import { classNames } from '../../utils/ClassNames/ClassNames';
 
 interface SelectProps {
     title: string;
     options: IOption[];
+    className?: string;
 }
 
 const Select = (props: SelectProps) => {
@@ -11,15 +13,21 @@ const Select = (props: SelectProps) => {
     const {
         title,
         options,
+        className,
     } = props;
 
   return (
-    <div className={cls.container}>
+    <div className={classNames(cls.container, {}, [className])}>
         <h3 className={cls.title}>{title}</h3>
-        <ul className={cls.list}>
+        <ul className={cls.dropDown}>
             {options.map(option =>
-                <li key={option.value}> 
-                    <button onClick={option.action}>{option.name}</button>
+                <li className={cls.item} key={option.value}> 
+                    <button
+                        className={cls.btn} 
+                        onClick={option.action}
+                        >
+                            {option.name}
+                        </button>
                 </li>        
             )}
         </ul>

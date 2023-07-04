@@ -1,41 +1,23 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useActions } from './hooks/useActions';
 import { useAppSelector } from './hooks/useAppSelector';
-import CarList from './components/CarList/CarList';
-import Pagination from './components/Pagination/Pagination';
 import Modal from './components/Modal/Modal';
 import CreateForm from './components/CreateForm/CreateForm';
 import DeleteForm from './components/DeleteForm/DeleteForm';
 import EditForm from './components/EditForm/EditForm';
-import { findCarById } from './utils/FindCarById';
+import CarTable from './components/CarTable/CarTable';
 
 function App() {
 
-  const {cars, isLoading} = useAppSelector(state => state.car);
-  const [currentPageNumber, setCurrentPageNumber] = useState(1);
-  const [carPerPage] = useState(10);
-  const [searchQuery, setSearchQuery] = useState('');
+  const {isLoading, error} = useAppSelector(state => state.car);
+
   const [isCreateFormOpen, setIsCreateFormOpen] = useState(false);
   const [isDeleteFormOpen, setIsDeleteFormOpen] = useState(false);
   const [isEditFormOpen, setIsEditFormOpen] = useState(false);
   const [itemId, setItemId] = useState(0);
-  const [editCar, setEditCar] = useState(findCarById(itemId));
-
-  const lastIndex = currentPageNumber * carPerPage;
-  const firsIndex = lastIndex - carPerPage;
-  const SearchedCars = cars.filter(car => car.car.toLowerCase().includes(searchQuery.toLowerCase()));
-  const currentCars = SearchedCars.slice(firsIndex, lastIndex);
 
   const {fetchCars} = useActions();
 
-  const paginate = (pageNumber: number) => {
-    setCurrentPageNumber(pageNumber);
-  }
-
-  const onChangeSearchQuery = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value);
-    setCurrentPageNumber(1);
-  }
   
   const onCloseModal = () => {
     setIsCreateFormOpen(false);
@@ -43,56 +25,42 @@ function App() {
     setIsEditFormOpen(false);
   }
 
-  const onOpenCreateForm = () => {
-    setIsCreateFormOpen(true);
-  }
-
   useEffect(() => {
     fetchCars();  
   }, [])
 
-  useEffect(() => {
-    setEditCar(findCarById(itemId));
-    console.log(itemId);
-    
-  }, [itemId]);
-
   if(isLoading) {
-    return <h2>Loading...</h2>
+    return <h2 className='loading'>Loading...</h2>
+  }
+
+  if(error) {
+    return <h2 className='error'>{error}</h2>
   }
 
   return (
     <div className="App">
-      <input 
-        type="text"
-        placeholder='Search...'
-        value={searchQuery}
-        onChange={onChangeSearchQuery}
-       />
-      <button onClick={onOpenCreateForm}>Create</button> 
-      <CarList 
-        cars={currentCars} 
+      
+      <CarTable
+        setIsCreateFormOpen={setIsCreateFormOpen}
         setIsDeleteFormOpen={setIsDeleteFormOpen}
         setIsEditFormOpen={setIsEditFormOpen}
         setItemId={setItemId}
       />
-
-      <Pagination 
-        totalItems={SearchedCars.length} 
-        itemsPerPage={carPerPage}
-        paginate={paginate}
-        currentPage={currentPageNumber}
-      />
-
       <Modal 
         isOpen={isCreateFormOpen} 
         onClose={onCloseModal}
+        title="Create form"
         >
-          <CreateForm/>
+          <CreateForm 
+            isOpen={isCreateFormOpen} 
+            onClose={onCloseModal}
+            
+          />
       </Modal>
       <Modal 
         isOpen={isDeleteFormOpen} 
         onClose={onCloseModal}
+        title='Delete car'
         >
           <DeleteForm 
             onCancelForm={onCloseModal}
@@ -102,15 +70,13 @@ function App() {
       <Modal 
         isOpen={isEditFormOpen} 
         onClose={onCloseModal}
+        title="Edit Form"
         >
-          {editCar 
-            ?
-            <EditForm 
-              isDisabled={false} 
-              editCar={editCar}
-            /> 
-            :
-            <h2>Car is not found</h2>}
+          <EditForm 
+            carId={itemId}
+            isOpen={isEditFormOpen}
+            onClose={onCloseModal}
+          /> 
       </Modal>
     </div>
   );

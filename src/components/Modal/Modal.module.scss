@@ -8,6 +8,8 @@
     pointer-events: none;
     z-index: -1;
     transition: all 0.4s ease;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    font-size: var(--font-size--main);
 }
 
 .overlay {
@@ -20,13 +22,27 @@
 }
 
 .content {
-    max-width: 40%;
-    padding: 30px;
+    max-width: 400px;
+    width: 100%;
     border-radius: 10px;
     background-color: #fff;
     opacity: 0;
     transform: translate(0px, -100%);
     transition: all 0.4s ease;
+}
+
+.title {
+    display: block;
+    padding: 30px;
+    border-bottom: 2px solid var(--black-color);
+    border-radius: 10px 10px 0 0;
+    color: var(--main-color);
+    font-weight: bold;
+    font-size: var(--font-size--large);
+}
+
+.contentBottom {
+    padding: 30px;
 }
 
 .opened {
@@ -37,5 +53,27 @@
     .content {
         opacity: 1;
         transform: translate(0px, 0px);
+    }
+    
+    body {
+        overflow: hidden;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .content {
+        max-width: 350px;
+    }
+}
+
+@media screen and (max-width: 424px) {
+    .content {
+        max-width: 300px;
+    }
+}
+
+@media screen and (max-width: 373px) {
+    .content {
+        max-width: 270px;
     }
 }

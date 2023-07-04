@@ -4,13 +4,39 @@
 }
 
 .title {
-    font-size: 16px;
-    cursor: pointer;
     display: block;
+    text-align: center;
+    font-size: var(--font-size--main);
+    color: var(--main-color);
+    padding: 5px;
+    border-bottom: 2px solid var(--main-color);
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.dropDown {
+    position: absolute;
+    display: none;
+    top: 20px;
+    padding: 10px 10px 15px 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--main-color);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    z-index: 10;
+}
+
+.btn {
+    padding: 5px 10px;
+    background-color: var(--main-color);
+    color: var(--white-color);
+    border-bottom: 2px solid var(--white-color);
+    font-size: var(--font-size--main);
 }
 
 .container:hover{
-    .list {
+    .dropDown {
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -18,7 +44,47 @@
     }
 }
 
-.list {
-    position: absolute;
-    display: none;
+@media screen and (max-width: 1023px) {
+    .title {
+        font-size: var(--font-size--small);
+        padding: 2px;
+    }
+
+    .btn {
+        padding: 5px;
+    }
+
+    .dropDown {
+        padding: 7px;
+        top: 16px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+
+    .container {
+        margin-left: auto;
+    }
+
+    .title {
+        font-size: var(--font-size--main);
+        padding: 5px;
+    }
+
+    .btn {
+        padding: 5px 10px;
+        background-color: var(--white-color);
+        border-bottom: 1px solid var(--main-color);
+        color: var(--main-color);
+    }
+
+    .dropDown {
+        left: -8px;
+        transform: translateX(0);
+        padding: 10px 10px 15px 10px;
+        top: 20px;
+        background-color: var(--white-color);
+        color: var(--main-color);
+        
+    }
 }

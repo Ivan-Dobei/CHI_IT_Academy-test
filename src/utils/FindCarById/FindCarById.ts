@@ -1,4 +1,4 @@
-import { ICar } from "../models/ICar";
+import { ICar } from "../../models/ICar";
 
 export const findCarById = (id: number) => {
     const json = localStorage.getItem('cars');
